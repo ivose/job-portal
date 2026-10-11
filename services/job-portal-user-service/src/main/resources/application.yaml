@@ -1,0 +1,22 @@
+server:
+  port: 5001
+
+spring:
+  application:
+    name: job-portal-user-service
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/yt_job_portal_user
+    username: postgres
+    password: secretpass # in real projects don't write straignt here, it's for local develop only
+    driver-class-name: org.postgresql.Driver
