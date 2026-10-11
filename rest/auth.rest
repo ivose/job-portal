@@ -1,0 +1,20 @@
+### Register a new user
+POST http://localhost:5001/auth/signup
+Content-Type: application/json
+
+{
+  "fullName": "My Name2",
+  "email": "my2@mail.com",
+  "password": "mypass",
+  "role": "ROLE_EMPLOYER"
+}
+
+
+### login
+POST http://localhost:5001/auth/login
+Content-Type: application/json
+
+{
+"email": "my@mail.com",
+"password": "mypass"
+}
