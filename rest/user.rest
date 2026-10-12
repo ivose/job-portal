@@ -1,0 +1,20 @@
+@baseUrl = http://localhost:5001
+@email = my2@mail.com
+@userId = 1
+
+
+
+### Get my profile
+GET http://localhost:5001/api/users/profile
+X-User-Email: my2@mail.com
+
+### Update my profile
+PUT http://localhost:5001/api/users/profile
+X-User-Email: my2@mail.com
+Content-Type: application/json
+
+{
+  "fullName": "My Name Updated",
+  "phone": "+3725550123",
+  "profileImage": "https://example.com/profile.png"
+}
