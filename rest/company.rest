@@ -1,0 +1,75 @@
+### Company Service API Tests
+# IntelliJ IDEA HTTP Client
+# Update the port to match the company service server.port setting.
+@baseUrl = http://localhost:5002
+@ownerId = 1
+@companyId = 1
+
+### 1. Create a new company
+POST {{baseUrl}}/api/company
+X-User-Id: {{ownerId}}
+Content-Type: application/json
+
+{
+  "name": "Tech Solutions Estonia",
+  "tagline": "Building better software",
+  "description": "Software development and IT consulting company",
+  "logoUrl": "https://example.com/logo.png",
+  "coverImageUrl": "https://example.com/cover.png",
+  "website": "https://techsolutions.example.com",
+  "email": "contact@techsolutions.example.com",
+  "phone": "+3725550123",
+  "foundedYear": 2020,
+  "registrationNumber": "REG-EST-12345",
+  "socialLinks": [
+    {"platform": "LINKEDIN", "url": "https://www.linkedin.com/company/techsolutions"},
+    {"platform": "GITHUB", "url": "https://github.com/techsolutions"}
+  ]
+}
+
+### 2. Get my company
+GET {{baseUrl}}/api/company/my
+X-User-Id: {{ownerId}}
+
+### 3. Get company by ID
+GET {{baseUrl}}/api/company/{{companyId}}
+
+### 4. List all companies
+GET {{baseUrl}}/api/company
+
+### 5. Filter companies (replace example enum values with exact constants in your project)
+# GET {{baseUrl}}/api/company?companyType=YOUR_COMPANY_TYPE&industryType=YOUR_INDUSTRY_TYPE&companyStatus=ACTIVE
+
+### 6. Update company (PUT replaces the fields managed by your current service)
+PUT {{baseUrl}}/api/company/{{companyId}}
+X-User-Id: {{ownerId}}
+Content-Type: application/json
+
+{
+  "name": "Tech Solutions Estonia Updated",
+  "tagline": "Software that scales",
+  "description": "Updated software development and consulting company",
+  "logoUrl": "https://example.com/new-logo.png",
+  "coverImageUrl": "https://example.com/new-cover.png",
+  "website": "https://techsolutions.example.com",
+  "email": "hello@techsolutions.example.com",
+  "phone": "+3725512345",
+  "foundedYear": 2020,
+  "registrationNumber": "REG-EST-12345",
+  "socialLinks": [
+    {"platform": "LINKEDIN", "url": "https://www.linkedin.com/company/techsolutions"},
+    {"platform": "WEBSITE", "url": "https://techsolutions.example.com"}
+  ]
+}
+
+### 7. Verify company (should be restricted to authorized administrators)
+PATCH {{baseUrl}}/api/company/verify
+X-User-Id: {{ownerId}}
+
+### 8. Deactivate my company
+PATCH {{baseUrl}}/api/company/deactivate
+X-User-Id: {{ownerId}}
+
+### 9. Delete company (destructive — run last)
+DELETE {{baseUrl}}/api/company/{{companyId}}
+X-User-Id: {{ownerId}}

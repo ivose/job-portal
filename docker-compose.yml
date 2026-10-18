@@ -11,6 +11,12 @@ services:
 
     ports:
       - "127.0.0.1:5432:5432"
+    #if needd,
+    # docker exec -it job-portal-postgres psql -U postgres .
+    # CREATE DATABASE yt_job_portal_company;
+    # \l
+    # \q
+
 
     volumes:
       - postgres_data:/var/lib/postgresql/data

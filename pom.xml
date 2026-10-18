@@ -113,6 +113,15 @@
                         <removeUnusedImports/>
                     </java>
                 </configuration>
+                <executions><!--while building it uses spotless:apply-->
+                    <execution>
+                        <id>format-java</id>
+                        <phase>process-sources</phase>
+                        <goals>
+                            <goal>apply</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

@@ -2,7 +2,6 @@ package com.zosh.job.mapper;
 
 import com.zosh.job.dto.response.UserResponse;
 import com.zosh.job.model.User;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,7 +20,7 @@ public class UserMapper {
     return dto;
   }
 
-    public static List<UserResponse> toDTOList(List<User> users) {
-      return users.stream().map(UserMapper::toDTO).collect(Collectors.toList());
-    }
+  public static List<UserResponse> toDTOList(List<User> users) {
+    return users.stream().map(UserMapper::toDTO).collect(Collectors.toList());
+  }
 }
