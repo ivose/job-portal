@@ -7,6 +7,7 @@ import com.zosh.job.dto.ApiResponse;
 import com.zosh.job.dto.CompanyRequest;
 import com.zosh.job.dto.CompanyResponse;
 import com.zosh.job.service.CompanyService;
+import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -32,7 +33,7 @@ public class CompanyController {
 
   @PostMapping
   public ResponseEntity<CompanyResponse> createCompany(
-      @RequestHeader("X-User-Id") Long ownerId, @RequestBody CompanyRequest companyRequest)
+      @RequestHeader("X-User-Id") Long ownerId, @Valid @RequestBody CompanyRequest companyRequest)
       throws Exception {
     return ResponseEntity.status(HttpStatus.CREATED)
         .body(companyService.createCompany(ownerId, companyRequest));
@@ -66,7 +67,7 @@ public class CompanyController {
   public ResponseEntity<CompanyResponse> updateCompany(
       @PathVariable Long companyId,
       @RequestHeader("X-User-Id") Long ownerId,
-      @RequestBody CompanyRequest companyRequest)
+      @Valid @RequestBody CompanyRequest companyRequest)
       throws Exception {
 
     return ResponseEntity.ok(companyService.updateCompany(companyId, ownerId, companyRequest));

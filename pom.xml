@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>4.0.5</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <relativePath/>
+        <!-- lookup parent from repository -->
     </parent>
     <groupId>com.zosh.job</groupId>
     <artifactId>job-portal-system</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
     <name>job-portal-system</name>
     <description>AI-based Job Portal - Multi-Module Microservices System</description>
-    <packaging>pom</packaging>
 
     <modules>
         <module>cloud</module>
@@ -72,10 +72,8 @@
                 <scope>runtime</scope>
             </dependency>
 
-
         </dependencies>
     </dependencyManagement>
-
 
     <build>
         <pluginManagement>
@@ -108,18 +106,36 @@
                 <artifactId>spotless-maven-plugin</artifactId>
                 <version>3.10.3</version>
                 <configuration>
+                    <!-- Format Java files -->
                     <java>
                         <googleJavaFormat/>
                         <removeUnusedImports/>
                     </java>
+
+                    <!-- Format Maven pom.xml files -->
+                    <pom>
+                        <includes>
+                            <include>pom.xml</include>
+                        </includes>
+                        <sortPom>
+                            <nrOfIndentSpace>4</nrOfIndentSpace>
+                            <keepBlankLines>true</keepBlankLines>
+                        </sortPom>
+                    </pom>
+                    <sql>
+                        <includes>
+                            <include>src/main/resources/db/migration/**/*.sql</include>
+                        </includes>
+                        <dbeaver/>
+                    </sql>
                 </configuration>
-                <executions><!--while building it uses spotless:apply-->
+                <executions>
                     <execution>
-                        <id>format-java</id>
-                        <phase>process-sources</phase>
+                        <id>format-code</id>
                         <goals>
                             <goal>apply</goal>
                         </goals>
+                        <phase>process-sources</phase>
                     </execution>
                 </executions>
             </plugin>

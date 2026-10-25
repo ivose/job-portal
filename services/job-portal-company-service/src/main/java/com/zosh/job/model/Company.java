@@ -1,5 +1,6 @@
 package com.zosh.job.model;
 
+import com.zosh.job.db.BaseTable;
 import com.zosh.job.domain.CompanySize;
 import com.zosh.job.domain.CompanyStatus;
 import com.zosh.job.domain.CompanyType;
@@ -10,11 +11,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -22,21 +19,16 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
+import lombok.experimental.SuperBuilder;
 
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-@Builder
+@SuperBuilder
 @Table(name = "companies")
-public class Company {
-
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  private Long id;
+public class Company extends BaseTable {
 
   @Column(unique = true, nullable = true)
   private String name;
@@ -77,12 +69,4 @@ public class Company {
   private List<SocialLink> socialLinks = new ArrayList<>();
 
   private Boolean active = true;
-
-  @Column(nullable = false, updatable = false)
-  @CreationTimestamp
-  private LocalDateTime createdAt;
-
-  @Column(nullable = false)
-  @UpdateTimestamp
-  private LocalDateTime updatedAt;
 }

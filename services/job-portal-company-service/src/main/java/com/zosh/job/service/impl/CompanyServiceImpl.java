@@ -115,7 +115,6 @@ public class CompanyServiceImpl implements CompanyService {
         && companyRepository.existsByName(req.getName())) {
       throw new Exception("Company already exists. Please choose a different name.");
     }
-    // Update company details
     company.setName(req.getName());
     company.setSlug(req.getSlug());
     company.setTagline(req.getTagline());
@@ -127,15 +126,12 @@ public class CompanyServiceImpl implements CompanyService {
     company.setPhone(req.getPhone());
     company.setFoundedYear(req.getFoundedYear());
 
-    // Update company information
     company.setCompanySize(req.getCompanySize());
     company.setCompanyType(req.getCompanyType());
     company.setIndustryType(req.getIndustryType());
 
-    // Update registration number
     company.setRegistrationNumber(req.getRegistrationNumber());
 
-    // Update social links
     if (req.getSocialLinks() != null) {
       List<SocialLink> socialLinks =
           req.getSocialLinks().stream()

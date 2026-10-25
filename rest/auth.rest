@@ -3,8 +3,8 @@ POST http://localhost:5001/auth/signup
 Content-Type: application/json
 
 {
-  "fullName": "My Name2",
-  "email": "my2@mail.com",
+  "fullName": "My Name",
+  "email": "my@mail.com",
   "password": "mypass",
   "role": "ROLE_EMPLOYER"
 }

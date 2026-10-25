@@ -23,7 +23,6 @@ public class CompanyResponse {
   private String slug;
   private String tagline;
   private String description;
-  // private String imageUrl;
   private String logoUrl;
   private String coverImageUrl;
   private String website;

@@ -47,7 +47,6 @@ public class CompanyMapper {
         .active(company.getActive())
         .ownerId(company.getOwnerId())
         .socialLinks(sociaLinks)
-        //
         .createdAt(company.getCreatedAt())
         .updatedAt(company.getUpdatedAt())
         .build();

@@ -6,15 +6,15 @@
 
 ### Get my profile
 GET http://localhost:5001/api/users/profile
-X-User-Email: my2@mail.com
+X-User-Email: my@mail.com
 
 ### Update my profile
 PUT http://localhost:5001/api/users/profile
-X-User-Email: my2@mail.com
+X-User-Email: my@mail.com
 Content-Type: application/json
 
 {
-  "fullName": "My Name Updated",
+  "fullName": "My Name",
   "phone": "+37255123456",
   "profileImage": "https://example.com/profile.png"
 }

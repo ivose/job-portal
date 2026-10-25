@@ -11,6 +11,10 @@ services:
 
     ports:
       - "127.0.0.1:5432:5432"
+    # before hard reloading
+    # docker exec job-portal-postgres psql -U postgres -d yt_job_portal_user -v ON_ERROR_STOP=1 -c "DROP SCHEMA public CASCADE; CREATE SCHEMA public;"
+    # docker exec job-portal-postgres psql -U postgres -d yt_job_portal_company -v ON_ERROR_STOP=1 -c "DROP SCHEMA public CASCADE; CREATE SCHEMA public;"
+    # docker exec job-portal-postgres psql -U postgres -d yt_job_portal_job -v ON_ERROR_STOP=1 -c "DROP SCHEMA public CASCADE; CREATE SCHEMA public;"
     #if needd,
     # docker exec -it job-portal-postgres psql -U postgres .
     # CREATE DATABASE yt_job_portal_company;

@@ -20,10 +20,19 @@ Content-Type: application/json
   "email": "contact@techsolutions.example.com",
   "phone": "+3725550123",
   "foundedYear": 2020,
+  "companySize": "SMALL",
+  "companyType": "PRIVATE",
+  "industryType": "TELECOMMUNICATIONS",
   "registrationNumber": "REG-EST-12345",
   "socialLinks": [
-    {"platform": "LINKEDIN", "url": "https://www.linkedin.com/company/techsolutions"},
-    {"platform": "GITHUB", "url": "https://github.com/techsolutions"}
+    {
+      "platform": "LINKEDIN",
+      "url": "https://www.linkedin.com/company/techsolutions"
+    },
+    {
+      "platform": "GITHUB",
+      "url": "https://github.com/techsolutions"
+    }
   ]
 }
 

@@ -1,0 +1,222 @@
+### Job Portal - Job Service HTTP tests
+### IntelliJ IDEA HTTP Client
+### Run requests individually; update IDs after creating records.
+
+@baseUrl = http://localhost:5003
+@employerId = 1
+@companyId = 1
+@categoryId = 1
+@parentCategoryId = 1
+@skillId = 1
+@tagId = 1
+@jobId = 1
+
+
+### ==================== CATEGORIES ====================
+
+### Create a root category
+POST {{baseUrl}}/api/job-categories
+Content-Type: application/json
+
+{
+  "name": "Information Technology",
+  "description": "Technology and software jobs",
+  "iconUrl": "https://example.com/it.png",
+  "parentId": null
+}
+
+### Create a child category (update parentCategoryId first)
+POST {{baseUrl}}/api/job-categories
+Content-Type: application/json
+
+{
+  "name": "Backend Development",
+  "description": "Java, Spring Boot and APIs",
+  "iconUrl": "https://example.com/backend.png",
+  "parentId": {{parentCategoryId}}
+}
+
+### List active categories
+GET {{baseUrl}}/api/job-categories
+
+### Get category by ID
+GET {{baseUrl}}/api/job-categories/{{categoryId}}
+
+### Update category (PUT)
+PUT {{baseUrl}}/api/job-categories/{{categoryId}}
+Content-Type: application/json
+
+{
+  "name": "IT and Software Development",
+  "description": "Updated description",
+  "iconUrl": "https://example.com/it-new.png",
+  "parentId": null
+}
+
+### Delete/deactivate category - run only after other tests
+DELETE {{baseUrl}}/api/job-categories/{{categoryId}}
+
+
+### ==================== SKILLS ====================
+### Note: Adapt category to the exact type/enum accepted by JobSkillRequest.
+
+### Create skill
+POST {{baseUrl}}/api/job-skills
+Content-Type: application/json
+
+{
+  "name": "Java",
+  "category": "PROGRAMMING_LANGUAGE"
+}
+
+### List active skills
+GET {{baseUrl}}/api/job-skills
+
+### Get skill by ID
+GET {{baseUrl}}/api/job-skills/{{skillId}}
+
+### Update skill
+PUT {{baseUrl}}/api/job-skills/{{skillId}}
+Content-Type: application/json
+
+{
+  "name": "Java Development",
+  "category": "PROGRAMMING_LANGUAGE"
+}
+
+### Get skills by IDs
+POST {{baseUrl}}/api/job-skills/by-ids
+Content-Type: application/json
+
+[{{skillId}}]
+
+### Delete skill - run last
+DELETE {{baseUrl}}/api/job-skills/{{skillId}}
+
+
+### ==================== TAGS ====================
+### Adjust body fields if your JobTagRequest requires additional properties.
+
+### Create tag
+POST {{baseUrl}}/api/job-tags
+Content-Type: application/json
+
+{
+  "name": "Remote Friendly"
+}
+
+### List tags
+GET {{baseUrl}}/api/job-tags
+
+### Get tag by ID
+GET {{baseUrl}}/api/job-tags/{{tagId}}
+
+### Update tag
+PUT {{baseUrl}}/api/job-tags/{{tagId}}
+Content-Type: application/json
+
+{
+  "name": "Flexible Remote"
+}
+
+### Get tags by IDs
+POST {{baseUrl}}/api/job-tags/by-ids
+Content-Type: application/json
+
+[{{tagId}}]
+
+### Delete tag - run last
+DELETE {{baseUrl}}/api/job-tags/{{tagId}}
+
+
+### ==================== JOBS ====================
+### Create categories, skills, tags, and the employer's company before creating a job.
+### Replace enum values below if your project's enums use different names.
+
+### Create draft job
+POST {{baseUrl}}/api/jobs
+X-User-Id: {{employerId}}
+Content-Type: application/json
+
+{
+  "title": "Java Backend Developer",
+  "description": "Build Spring Boot microservices",
+  "requirements": "Java 21, PostgreSQL, REST APIs",
+  "responsibilities": "Develop APIs and write tests",
+  "benefits": "Flexible working hours",
+  "categoryId": {{categoryId}},
+  "skillIds": [{{skillId}}],
+  "tagIds": [{{tagId}}],
+  "address": "Example Street 1",
+  "city": "Tallinn",
+  "state": "Harjumaa",
+  "country": "Estonia",
+  "zipCode": "10111",
+  "minSalary": 2500,
+  "maxSalary": 4500,
+  "jobType": "FULL_TIME",
+  "workMode": "REMOTE",
+  "experienceLevel": "MID_LEVEL",
+  "openings": 2,
+  "applicationDeadLine": "2026-12-31",
+  "expiredAt": "2027-01-31"
+}
+
+### Get job by ID
+GET {{baseUrl}}/api/jobs/{{jobId}}
+
+### Search public jobs
+GET {{baseUrl}}/api/jobs
+
+### Filter jobs (open jobs after publishing)
+GET {{baseUrl}}/api/jobs?keyword=java&location=Tallinn
+
+### Get jobs by company
+GET {{baseUrl}}/api/jobs/company/{{companyId}}
+
+### Update draft/open job
+PUT {{baseUrl}}/api/jobs/{{jobId}}
+X-User-Id: {{employerId}}
+Content-Type: application/json
+
+{
+  "title": "Senior Java Backend Developer",
+  "description": "Build and maintain Java microservices",
+  "requirements": "Java 21 and Spring Boot",
+  "responsibilities": "Design and maintain APIs",
+  "benefits": "Remote work",
+  "categoryId": {{categoryId}},
+  "skillIds": [{{skillId}}],
+  "tagIds": [{{tagId}}],
+  "address": "Example Street 1",
+  "city": "Tallinn",
+  "state": "Harjumaa",
+  "country": "Estonia",
+  "zipCode": "10111",
+  "minSalary": 3000,
+  "maxSalary": 5500,
+  "jobType": "FULL_TIME",
+  "workMode": "REMOTE",
+  "experienceLevel": "MID_LEVEL",
+  "openings": 2,
+  "applicationDeadLine": "2026-12-31",
+  "expiredAt": "2027-01-31"
+}
+
+### Publish draft job
+PATCH {{baseUrl}}/api/jobs/{{jobId}}/publish
+X-User-Id: {{employerId}}
+
+### Increment application count (test only after publishing)
+POST {{baseUrl}}/api/jobs/{{jobId}}/applications/count
+
+### Admin - list every job
+GET {{baseUrl}}/api/jobs/admin
+
+### Close open job
+PATCH {{baseUrl}}/api/jobs/{{jobId}}/close
+X-User-Id: {{employerId}}
+
+### Delete job - run last
+DELETE {{baseUrl}}/api/jobs/{{jobId}}
+X-User-Id: {{employerId}}
