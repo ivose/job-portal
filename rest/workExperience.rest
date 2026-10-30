@@ -1,0 +1,85 @@
+
+### Work Experience API Tests
+
+@baseUrl = http://localhost:5004
+@candidateId = 1
+@resumeId = 1
+@workExperienceId = 1
+
+### 1. Add current work experience
+POST {{baseUrl}}/api/resumes/{{resumeId}}/work-experiences
+X-User-Id: {{candidateId}}
+Content-Type: application/json
+
+{
+  "companyName": "Tech Solutions Estonia",
+  "companyLogoUrl": "https://example.com/logo.png",
+  "jobTitle": "Java Backend Developer",
+  "employmentType": "FULL_TIME",
+  "location": "Tallinn, Estonia",
+  "startDate": "2024-01-15",
+  "endDate": null,
+  "isCurrentJob": true,
+  "description": "Developing Spring Boot microservices and REST APIs",
+  "technologies": [
+    "Java 21",
+    "Spring Boot",
+    "PostgreSQL",
+    "Docker"
+  ],
+  "displayOrder": 1
+}
+
+### 2. Add previous work experience
+POST {{baseUrl}}/api/resumes/{{resumeId}}/work-experiences
+X-User-Id: {{candidateId}}
+Content-Type: application/json
+
+{
+  "companyName": "Software Studio",
+  "jobTitle": "Junior Java Developer",
+  "employmentType": "FULL_TIME",
+  "location": "Tartu, Estonia",
+  "startDate": "2022-06-01",
+  "endDate": "2023-12-31",
+  "isCurrentJob": false,
+  "description": "Developed backend services",
+  "technologies": [
+    "Java",
+    "Spring Boot",
+    "MySQL"
+  ],
+  "displayOrder": 2
+}
+
+### 3. Get work experiences for resume
+GET {{baseUrl}}/api/resumes/{{resumeId}}/work-experiences
+
+### 4. Update work experience
+PUT {{baseUrl}}/api/resumes/{{resumeId}}/work-experiences/{{workExperienceId}}
+X-User-Id: {{candidateId}}
+Content-Type: application/json
+
+{
+  "companyName": "Tech Solutions Estonia",
+  "companyLogoUrl": "https://example.com/logo.png",
+  "jobTitle": "Senior Java Backend Developer",
+  "employmentType": "FULL_TIME",
+  "location": "Tallinn, Estonia",
+  "startDate": "2024-01-15",
+  "endDate": null,
+  "isCurrentJob": true,
+  "description": "Designing and developing scalable microservices",
+  "technologies": [
+    "Java 21",
+    "Spring Boot",
+    "PostgreSQL",
+    "Docker",
+    "Kafka"
+  ],
+  "displayOrder": 1
+}
+
+### 5. Delete work experience
+DELETE {{baseUrl}}/api/resumes/{{resumeId}}/work-experiences/{{workExperienceId}}
+X-User-Id: {{candidateId}}
