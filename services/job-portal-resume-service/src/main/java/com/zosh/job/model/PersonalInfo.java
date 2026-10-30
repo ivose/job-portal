@@ -1,0 +1,32 @@
+package com.zosh.job.model;
+
+import jakarta.persistence.Embeddable;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Embeddable
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class PersonalInfo {
+
+  private String firstName;
+  private String lastName;
+
+  private String headline;
+
+  private String email;
+  private String phone;
+  private String city;
+  private String country;
+
+  private String linkedinUrl;
+  private String githubUrl;
+  private String portfolioUrl;
+  private String websiteUrl;
+}

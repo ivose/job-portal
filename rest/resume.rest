@@ -1,0 +1,80 @@
+import auth.rest
+
+run #login
+
+
+### Job Portal - Resume Service API Tests
+### IntelliJ IDEA HTTP Client
+
+@baseUrl = http://localhost:5004
+@candidateId = 1
+@resumeId = 1
+
+### ==================== RESUMES ====================
+
+### 1. Create a resume
+POST {{baseUrl}}/api/resumes
+X-User-Id: {{candidateId}}
+Content-Type: application/json
+
+{
+  "title": "Java Backend Developer Resume",
+  "template": "PROFESSIONAL",
+  "visibility": "PUBLIC",
+  "isDefault": true
+}
+
+### 2. Get my active resumes
+GET {{baseUrl}}/api/resumes/my
+X-User-Id: {{candidateId}}
+
+### 3. Get resume by ID
+GET {{baseUrl}}/api/resumes/{{resumeId}}
+X-User-Id: {{candidateId}}
+
+### 4. Update resume
+PUT {{baseUrl}}/api/resumes/{{resumeId}}
+X-User-Id: {{candidateId}}
+Content-Type: application/json
+
+{
+  "title": "Updated Java Backend Developer Resume",
+  "template": "PROFESSIONAL",
+  "visibility": "PUBLIC",
+  "isDefault": true
+}
+
+### 5. Update personal information
+PATCH {{baseUrl}}/api/resumes/{{resumeId}}/personal-info
+X-User-Id: {{candidateId}}
+Content-Type: application/json
+
+{
+  "firstName": "John",
+  "lastName": "Smith",
+  "headline": "Java Backend Developer",
+  "email": "john@example.com",
+  "phone": "+3725550123",
+  "city": "Tallinn",
+  "country": "Estonia",
+  "linkedinUrl": "https://linkedin.com/in/johnsmith",
+  "githubUrl": "https://github.com/johnsmith",
+  "portfolioUrl": "https://johnsmith.example.com",
+  "websiteUrl": "https://example.com"
+}
+
+### 6. Update resume summary
+PATCH {{baseUrl}}/api/resumes/{{resumeId}}/summary
+X-User-Id: {{candidateId}}
+Content-Type: text/plain
+
+Java backend developer with experience in Java 21, Spring Boot, PostgreSQL and microservices.
+
+### 7. Set as default resume
+PATCH {{baseUrl}}/api/resumes/{{resumeId}}/default
+X-User-Id: {{candidateId}}
+
+### 8. Delete resume (soft delete - run last)
+DELETE {{baseUrl}}/api/resumes/{{resumeId}}
+X-User-Id: {{candidateId}}
+

@@ -10,7 +10,6 @@
 
     <artifactId>job-portal-job-service</artifactId>
     <name>job-portal-job-service</name>
-
     <description>Service for managing job postings, and documents</description>
     <dependencies>
         <dependency>

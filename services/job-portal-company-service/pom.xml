@@ -10,9 +10,7 @@
 
     <artifactId>job-portal-company-service</artifactId>
     <name>job-portal-company-service</name>
-
     <description>Service for managing company profiles, and documents</description>
-
     <dependencies>
         <dependency>
             <groupId>com.zosh.job</groupId>
