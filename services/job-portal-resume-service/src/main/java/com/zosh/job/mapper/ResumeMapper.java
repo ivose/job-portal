@@ -2,12 +2,16 @@ package com.zosh.job.mapper;
 
 import com.zosh.job.dto.EducationResponse;
 import com.zosh.job.dto.PersonalInfoResponse;
+import com.zosh.job.dto.ProjectResponse;
 import com.zosh.job.dto.ResumeResponse;
 import com.zosh.job.dto.ResumeSkillResponse;
 import com.zosh.job.model.Education;
 import com.zosh.job.model.PersonalInfo;
+import com.zosh.job.model.Project;
 import com.zosh.job.model.Resume;
 import com.zosh.job.model.ResumeSkill;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ResumeMapper {
 
@@ -74,6 +78,26 @@ public class ResumeMapper {
             .isCurrentEducation(education.getIsCurrentEducation())
             .description(education.getDescription())
             .displayOrder(education.getDisplayOrder())
+            .build();
+  }
+
+  public static ProjectResponse toProjectResponse(Project project) {
+    return project == null
+        ? null
+        : ProjectResponse.builder()
+            .id(project.getId())
+            .title(project.getTitle())
+            .description(project.getDescription())
+            .technologies(
+                project.getTechnologies() == null
+                    ? List.of()
+                    : new ArrayList<>(project.getTechnologies()))
+            .projectUrl(project.getProjectUrl())
+            .sourceCodeUrl(project.getSourceCodeUrl())
+            .startDate(project.getStartDate())
+            .endDate(project.getEndDate())
+            .isonGoeing(project.getIsonGoeing())
+            .displayOrder(project.getDisplayOrder())
             .build();
   }
 }

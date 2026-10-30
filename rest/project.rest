@@ -1,0 +1,83 @@
+
+### Project Service API Tests
+
+@baseUrl = http://localhost:5004
+@candidateId = 1
+@resumeId = 1
+@projectId = 1
+
+### 1. Add completed project
+POST {{baseUrl}}/api/resumes/{{resumeId}}/projects
+X-User-Id: {{candidateId}}
+Content-Type: application/json
+
+{
+  "title": "Job Portal Backend",
+  "description": "Microservices-based job portal built with Java 21 and Spring Boot",
+  "technologies": [
+    "Java 21",
+    "Spring Boot",
+    "PostgreSQL",
+    "Docker",
+    "Flyway"
+  ],
+  "projectUrl": "https://jobportal.example.com",
+  "sourceCodeUrl": "https://github.com/example/job-portal",
+  "startDate": "2025-01-01",
+  "endDate": "2025-10-01",
+  "isonGoeing": false,
+  "displayOrder": 1
+}
+
+### 2. Add ongoing project
+POST {{baseUrl}}/api/resumes/{{resumeId}}/projects
+X-User-Id: {{candidateId}}
+Content-Type: application/json
+
+{
+  "title": "Resume Builder",
+  "description": "Online resume management and portfolio builder",
+  "technologies": [
+    "Java",
+    "Spring Boot",
+    "REST APIs",
+    "PostgreSQL"
+  ],
+  "projectUrl": "https://resume.example.com",
+  "sourceCodeUrl": "https://github.com/example/resume-builder",
+  "startDate": "2026-01-01",
+  "endDate": null,
+  "isonGoeing": true,
+  "displayOrder": 2
+}
+
+### 3. Get all projects for a resume
+GET {{baseUrl}}/api/resumes/{{resumeId}}/projects
+
+### 4. Update project
+PUT {{baseUrl}}/api/resumes/{{resumeId}}/projects/{{projectId}}
+X-User-Id: {{candidateId}}
+Content-Type: application/json
+
+{
+  "title": "Job Portal Microservices System",
+  "description": "Updated job portal with resume management",
+  "technologies": [
+    "Java 21",
+    "Spring Boot",
+    "PostgreSQL",
+    "Docker",
+    "Flyway",
+    "Spring Data JPA"
+  ],
+  "projectUrl": "https://jobportal.example.com",
+  "sourceCodeUrl": "https://github.com/example/job-portal",
+  "startDate": "2025-01-01",
+  "endDate": "2025-10-01",
+  "isonGoeing": false,
+  "displayOrder": 1
+}
+
+### 5. Delete project
+DELETE {{baseUrl}}/api/resumes/{{resumeId}}/projects/{{projectId}}
+X-User-Id: {{candidateId}}
