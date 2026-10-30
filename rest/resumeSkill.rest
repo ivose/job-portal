@@ -1,0 +1,50 @@
+
+### Resume Skills API Tests
+
+@baseUrl = http://localhost:5004
+@candidateId = 1
+@resumeId = 1
+@skillId = 1
+
+### 1. Add Java skill
+POST {{baseUrl}}/api/resumes/{{resumeId}}/skills
+X-User-Id: {{candidateId}}
+Content-Type: application/json
+
+{
+  "skillName": "Java",
+  "proficiencyLevel": "ADVANCED",
+  "yearsOfExperience": 4,
+  "displayOrder": 1
+}
+
+### 2. Add PostgreSQL skill
+POST {{baseUrl}}/api/resumes/{{resumeId}}/skills
+X-User-Id: {{candidateId}}
+Content-Type: application/json
+
+{
+  "skillName": "PostgreSQL",
+  "proficiencyLevel": "BEGINNER",
+  "yearsOfExperience": 2,
+  "displayOrder": 2
+}
+
+### 3. Get all skills for resume
+GET {{baseUrl}}/api/resumes/{{resumeId}}/skills
+
+### 4. Update skill
+PUT {{baseUrl}}/api/resumes/{{resumeId}}/skills/{{skillId}}
+X-User-Id: {{candidateId}}
+Content-Type: application/json
+
+{
+  "skillName": "Java 21",
+  "proficiencyLevel": "ADVANCED",
+  "yearsOfExperience": 5,
+  "displayOrder": 1
+}
+
+### 5. Delete skill
+DELETE {{baseUrl}}/api/resumes/{{resumeId}}/skills/{{skillId}}
+X-User-Id: {{candidateId}}
