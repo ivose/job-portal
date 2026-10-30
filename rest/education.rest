@@ -1,0 +1,65 @@
+
+### Education API Tests
+
+@baseUrl = http://localhost:5004
+@candidateId = 1
+@resumeId = 1
+@educationId = 1
+
+### 1. Add completed education
+POST {{baseUrl}}/api/resumes/{{resumeId}}/educations
+X-User-Id: {{candidateId}}
+Content-Type: application/json
+
+{
+  "institutionName": "Tallinn University of Technology",
+  "degree": "Bachelor of Science",
+  "fieldOfStudy": "Computer Science",
+  "grade": "4.5",
+  "startDate": "2018-09-01",
+  "endDate": "2021-06-30",
+  "isCurrentEducation": false,
+  "description": "Studied software engineering and databases",
+  "displayOrder": 1
+}
+
+### 2. Add current education
+POST {{baseUrl}}/api/resumes/{{resumeId}}/educations
+X-User-Id: {{candidateId}}
+Content-Type: application/json
+
+{
+  "institutionName": "University of Tartu",
+  "degree": "Master of Science",
+  "fieldOfStudy": "Software Engineering",
+  "grade": null,
+  "startDate": "2025-09-01",
+  "endDate": null,
+  "isCurrentEducation": true,
+  "description": "Currently studying advanced software development",
+  "displayOrder": 2
+}
+
+### 3. Get all education records
+GET {{baseUrl}}/api/resumes/{{resumeId}}/educations
+
+### 4. Update education
+PUT {{baseUrl}}/api/resumes/{{resumeId}}/educations/{{educationId}}
+X-User-Id: {{candidateId}}
+Content-Type: application/json
+
+{
+  "institutionName": "Tallinn University of Technology",
+  "degree": "Bachelor of Science",
+  "fieldOfStudy": "Computer Science and Software Engineering",
+  "grade": "4.8",
+  "startDate": "2018-09-01",
+  "endDate": "2021-06-30",
+  "isCurrentEducation": false,
+  "description": "Specialized in Java, algorithms and databases",
+  "displayOrder": 1
+}
+
+### 5. Delete education
+DELETE {{baseUrl}}/api/resumes/{{resumeId}}/educations/{{educationId}}
+X-User-Id: {{candidateId}}
