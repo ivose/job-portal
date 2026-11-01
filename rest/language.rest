@@ -1,0 +1,47 @@
+
+### Language API Tests
+
+@baseUrl = http://localhost:5004
+@candidateId = 1
+@resumeId = 1
+@languageId = 1
+
+### 1. Add English
+POST {{baseUrl}}/api/resumes/{{resumeId}}/languages
+X-User-Id: {{candidateId}}
+Content-Type: application/json
+
+{
+  "languageName": "English",
+  "proficiency": "FLUENT",
+  "displayOrder": 1
+}
+
+### 2. Add Estonian
+POST {{baseUrl}}/api/resumes/{{resumeId}}/languages
+X-User-Id: {{candidateId}}
+Content-Type: application/json
+
+{
+  "languageName": "Estonian",
+  "proficiency": "NATIVE",
+  "displayOrder": 2
+}
+
+### 3. Get all languages
+GET {{baseUrl}}/api/resumes/{{resumeId}}/languages
+
+### 4. Update language
+PUT {{baseUrl}}/api/resumes/{{resumeId}}/languages/{{languageId}}
+X-User-Id: {{candidateId}}
+Content-Type: application/json
+
+{
+  "languageName": "English",
+  "proficiency": "PROFESSIONAL",
+  "displayOrder": 1
+}
+
+### 5. Delete language
+DELETE {{baseUrl}}/api/resumes/{{resumeId}}/languages/{{languageId}}
+X-User-Id: {{candidateId}}

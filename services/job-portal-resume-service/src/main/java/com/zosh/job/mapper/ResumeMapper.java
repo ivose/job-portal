@@ -1,11 +1,13 @@
 package com.zosh.job.mapper;
 
 import com.zosh.job.dto.EducationResponse;
+import com.zosh.job.dto.LanguageResponse;
 import com.zosh.job.dto.PersonalInfoResponse;
 import com.zosh.job.dto.ProjectResponse;
 import com.zosh.job.dto.ResumeResponse;
 import com.zosh.job.dto.ResumeSkillResponse;
 import com.zosh.job.model.Education;
+import com.zosh.job.model.Language;
 import com.zosh.job.model.PersonalInfo;
 import com.zosh.job.model.Project;
 import com.zosh.job.model.Resume;
@@ -98,6 +100,17 @@ public class ResumeMapper {
             .endDate(project.getEndDate())
             .isonGoeing(project.getIsonGoeing())
             .displayOrder(project.getDisplayOrder())
+            .build();
+  }
+
+  public static LanguageResponse toLanguageResponse(Language lang) {
+    return lang == null
+        ? null
+        : LanguageResponse.builder()
+            .id(lang.getId())
+            .languageName(lang.getLanguageName())
+            .proficiency(lang.getProficiency())
+            .displayOrder(lang.getDisplayOrder())
             .build();
   }
 }
