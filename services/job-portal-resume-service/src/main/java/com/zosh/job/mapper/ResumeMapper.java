@@ -6,6 +6,7 @@ import com.zosh.job.dto.PersonalInfoResponse;
 import com.zosh.job.dto.ProjectResponse;
 import com.zosh.job.dto.ResumeResponse;
 import com.zosh.job.dto.ResumeSkillResponse;
+import com.zosh.job.dto.WorkExperienceResponse;
 import com.zosh.job.model.Education;
 import com.zosh.job.model.Language;
 import com.zosh.job.model.PersonalInfo;
@@ -17,7 +18,9 @@ import java.util.List;
 
 public class ResumeMapper {
 
-  public static PersonalInfoResponse toPersonalInfoResponse(PersonalInfo personalInfo) {
+  public static PersonalInfoResponse toPersonalInfoResponse(
+          PersonalInfo personalInfo
+  ) {
     return personalInfo == null
         ? null
         : PersonalInfoResponse.builder()
@@ -35,7 +38,14 @@ public class ResumeMapper {
             .build();
   }
 
-  public static ResumeResponse toResponse(Resume resume) {
+  public static ResumeResponse toResumeResponse(
+          Resume resume,
+          List<WorkExperienceResponse> workExperiences,
+          List<EducationResponse> educations,
+          List<ResumeSkillResponse> skills,
+          List<ProjectResponse> projects,
+          List<LanguageResponse> languages
+  ) {
 
     return resume == null
         ? null
@@ -51,6 +61,11 @@ public class ResumeMapper {
             .completionScore(resume.getCompletionScore())
             .createdAt(resume.getCreatedAt())
             .updatedAt(resume.getUpdatedAt())
+            .workExperiences(workExperiences)
+            .educations(educations)
+            .skills(skills)
+            .projects(projects)
+            .languages(languages)
             .build();
   }
 

@@ -65,6 +65,9 @@ Content-Type: application/json
   "phone": "+3725512345",
   "foundedYear": 2020,
   "registrationNumber": "REG-EST-12345",
+  "companySize": "SMALL",
+  "companyType": "PRIVATE",
+  "industryType": "TELECOMMUNICATIONS",
   "socialLinks": [
     {"platform": "LINKEDIN", "url": "https://www.linkedin.com/company/techsolutions"},
     {"platform": "WEBSITE", "url": "https://techsolutions.example.com"}

@@ -2,13 +2,24 @@ package com.zosh.job.service.impl;
 
 import com.zosh.job.domain.ResumeTemplate;
 import com.zosh.job.domain.ResumeVisibility;
+import com.zosh.job.dto.EducationResponse;
+import com.zosh.job.dto.LanguageResponse;
 import com.zosh.job.dto.PersonalInfoResponse;
+import com.zosh.job.dto.ProjectResponse;
 import com.zosh.job.dto.ResumeResponse;
+import com.zosh.job.dto.ResumeSkillResponse;
+import com.zosh.job.dto.WorkExperienceResponse;
 import com.zosh.job.mapper.ResumeMapper;
+import com.zosh.job.mapper.WorkExperienceMapper;
 import com.zosh.job.model.PersonalInfo;
 import com.zosh.job.model.Resume;
 import com.zosh.job.payload.CreateResumeRequest;
+import com.zosh.job.respository.EducationRepository;
+import com.zosh.job.respository.LanguageRepository;
+import com.zosh.job.respository.ProjectRepository;
 import com.zosh.job.respository.ResumeRepository;
+import com.zosh.job.respository.ResumeSkillRepository;
+import com.zosh.job.respository.WorkExperienceRepository;
 import com.zosh.job.service.ResumeService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -18,9 +29,14 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class ResumeServiceImpl implements ResumeService {
+public class  ResumeServiceImpl implements ResumeService {
 
   private final ResumeRepository resumeRepository;
+  private final WorkExperienceRepository workExperienceRepository;
+  private final EducationRepository educationRepository;
+  private final ResumeSkillRepository resumeSkillRepository;
+  private final ProjectRepository projectRepository;
+  private final LanguageRepository languageRepository;
 
   @Override
   public ResumeResponse createResume(Long candidateId, CreateResumeRequest req) throws Exception {
@@ -39,7 +55,7 @@ public class ResumeServiceImpl implements ResumeService {
             .isActive(true)
             .build();
 
-    return buildFullResponse(resume);
+    return buildFullResponse(resumeRepository.save(resume));
   }
 
   @Override
@@ -54,9 +70,10 @@ public class ResumeServiceImpl implements ResumeService {
   @Transactional(readOnly = true)
   public List<ResumeResponse> getMyResumes(Long candidateId) throws Exception {
 
-    return resumeRepository.findByCandidateIdAndIsActiveTrue(candidateId).stream()
-        .map(ResumeMapper::toResponse)
-        .toList();
+    return resumeRepository.findByCandidateIdAndIsActiveTrue(candidateId)
+            .stream()
+            .map(this::buildFullResponse)
+            .toList();
   }
 
   @Override
@@ -165,6 +182,29 @@ public class ResumeServiceImpl implements ResumeService {
   }
 
   private ResumeResponse buildFullResponse(Resume resume) {
-    return ResumeMapper.toResponse(resumeRepository.save(resume));
+    Long resumeId = resume.getId();
+    List<WorkExperienceResponse> workExperiences =
+            workExperienceRepository.findByResume_IdOrderByDisplayOrderAsc(resumeId)
+                    .stream().map(WorkExperienceMapper::toWorkExperienceResponse).toList();
+    List<EducationResponse> educations =
+            educationRepository.findByResume_IdOrderByDisplayOrderAsc(resumeId)
+                    .stream().map(ResumeMapper::toEducationResponse).toList();
+    List<ResumeSkillResponse> resumeSkills =
+            resumeSkillRepository.findByResume_IdOrderByDisplayOrderAsc(resumeId)
+                    .stream().map(ResumeMapper::toSkillResponse).toList();
+    List<ProjectResponse> projects =
+            projectRepository.findByResume_IdOrderByDisplayOrderAsc(resumeId)
+                    .stream().map(ResumeMapper::toProjectResponse).toList();
+    List<LanguageResponse> languages =
+            languageRepository.findByResume_IdOrderByDisplayOrderAsc(resumeId)
+                    .stream().map(ResumeMapper::toLanguageResponse).toList();
+    return ResumeMapper.toResumeResponse(
+            resume,
+            workExperiences,
+            educations,
+            resumeSkills,
+            projects,
+            languages
+    );
   }
 }

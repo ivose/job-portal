@@ -5,7 +5,7 @@ import com.zosh.job.mapper.ResumeMapper;
 import com.zosh.job.model.Language;
 import com.zosh.job.model.Resume;
 import com.zosh.job.payload.AddLanguageRequest;
-import com.zosh.job.respository.LangugageRepository;
+import com.zosh.job.respository.LanguageRepository;
 import com.zosh.job.service.LanguageService;
 import com.zosh.job.service.ResumeService;
 import java.util.List;
@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class LanguageServiceImpl implements LanguageService {
 
   private final ResumeService resumeService;
-  private final LangugageRepository languageRepository;
+  private final LanguageRepository languageRepository;
 
   @Override
   public LanguageResponse addLanguage(Long resumeId, Long candidateId, AddLanguageRequest req)

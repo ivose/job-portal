@@ -1,15 +1,15 @@
 @baseUrl = http://localhost:5001
-@email = my2@mail.com
+@email = my@mail.com
 @userId = 1
 
 
 
 ### Get my profile
-GET http://localhost:5001/api/users/profile
+GET {{baseUrl}}/api/users/profile
 X-User-Email: my@mail.com
 
 ### Update my profile
-PUT http://localhost:5001/api/users/profile
+PUT {{baseUrl}}/api/users/profile
 X-User-Email: my@mail.com
 Content-Type: application/json
 

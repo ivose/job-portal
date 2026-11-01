@@ -1,5 +1,7 @@
+@baseUrl = http://localhost:5001
+
 ### Register a new user
-POST http://localhost:5001/auth/signup
+POST {{baseUrl}}/auth/signup
 Content-Type: application/json
 
 {
@@ -11,7 +13,7 @@ Content-Type: application/json
 
 
 ### login
-POST http://localhost:5001/auth/login
+POST {{baseUrl}}/auth/login
 Content-Type: application/json
 
 {

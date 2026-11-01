@@ -1,6 +1,6 @@
 package com.zosh.job.payload;
 
-import com.zosh.job.domain.LangugageProficiency;
+import com.zosh.job.domain.LanguageProficiency;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -20,7 +20,7 @@ public class AddLanguageRequest {
   private String languageName;
 
   @NotNull(message = "Proficiency is required")
-  private LangugageProficiency proficiency;
+  private LanguageProficiency proficiency;
 
   private Integer displayOrder;
 }

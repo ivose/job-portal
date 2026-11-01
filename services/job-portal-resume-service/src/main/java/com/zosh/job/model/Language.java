@@ -1,7 +1,7 @@
 package com.zosh.job.model;
 
 import com.zosh.job.db.BaseTable;
-import com.zosh.job.domain.LangugageProficiency;
+import com.zosh.job.domain.LanguageProficiency;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -34,7 +34,7 @@ public class Language extends BaseTable {
 
   @Enumerated(EnumType.STRING)
   @Column(nullable = false)
-  private LangugageProficiency proficiency;
+  private LanguageProficiency proficiency;
 
   @Column(nullable = false)
   @Builder.Default

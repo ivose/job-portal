@@ -3,6 +3,8 @@ package com.zosh.job.dto;
 import com.zosh.job.domain.ResumeTemplate;
 import com.zosh.job.domain.ResumeVisibility;
 import java.time.LocalDateTime;
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -24,4 +26,10 @@ public class ResumeResponse {
   private Integer completionScore;
   private LocalDateTime createdAt;
   private LocalDateTime updatedAt;
+
+  private List<WorkExperienceResponse> workExperiences;
+  private List<EducationResponse> educations;
+  private List<ResumeSkillResponse> skills;
+  private List<ProjectResponse> projects;
+  private List<LanguageResponse> languages;
 }

@@ -1,6 +1,6 @@
 package com.zosh.job.dto;
 
-import com.zosh.job.domain.LangugageProficiency;
+import com.zosh.job.domain.LanguageProficiency;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -15,6 +15,6 @@ import lombok.Setter;
 public class LanguageResponse {
   private Long id;
   private String languageName;
-  private LangugageProficiency proficiency;
+  private LanguageProficiency proficiency;
   private Integer displayOrder;
 }
