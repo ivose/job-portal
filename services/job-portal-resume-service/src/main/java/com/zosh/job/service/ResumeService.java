@@ -21,7 +21,7 @@ public interface ResumeService {
   ResumeResponse updateResume(Long resumeId, Long candidateId, CreateResumeRequest req)
       throws Exception;
 
-  ResumeResponse setDefaultResume(Long resumeId, Long candidateID) throws Exception;
+  ResumeResponse setDefaultResume(Long resumeId, Long candidateId) throws Exception;
 
   void deleteResume(Long resumeId, Long candidateId) throws Exception;
 

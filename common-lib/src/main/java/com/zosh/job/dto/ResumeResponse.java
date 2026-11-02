@@ -4,7 +4,6 @@ import com.zosh.job.domain.ResumeTemplate;
 import com.zosh.job.domain.ResumeVisibility;
 import java.time.LocalDateTime;
 import java.util.List;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

@@ -11,7 +11,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 public interface CompanyRepository extends JpaRepository<Company, Long> {
-  Optional<Company> findByOwnerId(Long ownerID);
+  Optional<Company> findByOwnerId(Long ownerId);
 
   boolean existsByOwnerId(Long ownerId);
 

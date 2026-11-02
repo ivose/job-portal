@@ -16,14 +16,16 @@ services:
     # docker exec job-portal-postgres psql -U postgres -d postgres -c "CREATE DATABASE yt_job_portal_company;"
     # docker exec job-portal-postgres psql -U postgres -d postgres -c "CREATE DATABASE yt_job_portal_job;"
     # docker exec job-portal-postgres psql -U postgres -d postgres -c "CREATE DATABASE yt_job_portal_resume;"
+    # docker exec job-portal-postgres psql -U postgres -d postgres -c "CREATE DATABASE yt_job_portal_application;"
     # before hard reloading:
     # docker exec job-portal-postgres psql -U postgres -d yt_job_portal_user -v ON_ERROR_STOP=1 -c "DROP SCHEMA public CASCADE; CREATE SCHEMA public;"
     # docker exec job-portal-postgres psql -U postgres -d yt_job_portal_company -v ON_ERROR_STOP=1 -c "DROP SCHEMA public CASCADE; CREATE SCHEMA public;"
     # docker exec job-portal-postgres psql -U postgres -d yt_job_portal_job -v ON_ERROR_STOP=1 -c "DROP SCHEMA public CASCADE; CREATE SCHEMA public;"
     # docker exec job-portal-postgres psql -U postgres -d yt_job_portal_resume -v ON_ERROR_STOP=1 -c "DROP SCHEMA public CASCADE; CREATE SCHEMA public;"
-    #if needd,
+    # docker exec job-portal-postgres psql -U postgres -d yt_job_portal_application -v ON_ERROR_STOP=1 -c "DROP SCHEMA public CASCADE; CREATE SCHEMA public;"
+    #if necessary,
     # docker exec -it job-portal-postgres psql -U postgres .
-    # CREATE DATABASE yt_job_portal_company;
+    # CREATE DATABASE yt_job_portal_company; ## the same for other databases
     # \l
     # \q
 

@@ -1,0 +1,69 @@
+
+### Application Service API Tests
+
+@baseUrl = http://localhost:5005
+@candidateId = 1
+@employerId = 1
+@jobId = 1
+@resumeId = 1
+@applicationId = 1
+
+### 1. Create application
+POST {{baseUrl}}/api/applications
+X-User-Id: {{candidateId}}
+Content-Type: application/json
+
+{
+  "jobId": {{jobId}},
+  "resumeId": {{resumeId}},
+  "coverLetter": "I am interested in the Java Backend Developer position. I have experience with Java 21, Spring Boot and PostgreSQL.",
+  "expectedSalary": 3500,
+  "availableFrom": "2026-12-01"
+}
+
+### 2. Get application by ID
+GET {{baseUrl}}/api/applications/{{applicationId}}
+
+### 3. Get my applications
+GET {{baseUrl}}/api/applications/my
+X-User-Id: {{candidateId}}
+
+### 4. Get applications for a job
+GET {{baseUrl}}/api/applications/job/{{jobId}}
+
+### 5. Filter applications for a job
+GET {{baseUrl}}/api/applications/job/{{jobId}}?status=PENDING&sortBy=AI_SCORE_DESC
+
+### 6. Get company applications
+GET {{baseUrl}}/api/applications/company
+X-User-Id: {{employerId}}
+
+### 7. Filter company applications
+GET {{baseUrl}}/api/applications/company?job={{jobId}}&status=PENDING&isStarred=true
+X-User-Id: {{employerId}}
+
+### 8. Update application status
+PATCH {{baseUrl}}/api/applications/{{applicationId}}/status
+X-User-Id: {{employerId}}
+Content-Type: application/json
+
+{
+  "status": "PENDING"
+}
+
+### 9. Toggle starred status
+PATCH {{baseUrl}}/api/applications/{{applicationId}}/star
+X-User-Id: {{employerId}}
+
+### 10. Withdraw application
+PATCH {{baseUrl}}/api/applications/{{applicationId}}/withdraw
+X-User-Id: {{candidateId}}
+Content-Type: application/json
+
+{
+  "reason": "I have accepted another job offer"
+}
+
+### 11. Delete application
+DELETE {{baseUrl}}/api/applications/{{applicationId}}
+X-User-Id: {{candidateId}}

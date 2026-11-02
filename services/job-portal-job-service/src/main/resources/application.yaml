@@ -26,6 +26,10 @@ spring:
     baseline-on-migrate: false
     locations: classpath:db/migration
 
+job:
+  service:
+    url: http://localhost:5003
+
 # if necessary:
 # docker exec -it job-portal-postgres psql -U postgres -d postgres
 # CREATE DATABASE yt_job_portal_job;

@@ -29,7 +29,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class  ResumeServiceImpl implements ResumeService {
+public class ResumeServiceImpl implements ResumeService {
 
   private final ResumeRepository resumeRepository;
   private final WorkExperienceRepository workExperienceRepository;
@@ -70,10 +70,9 @@ public class  ResumeServiceImpl implements ResumeService {
   @Transactional(readOnly = true)
   public List<ResumeResponse> getMyResumes(Long candidateId) throws Exception {
 
-    return resumeRepository.findByCandidateIdAndIsActiveTrue(candidateId)
-            .stream()
-            .map(this::buildFullResponse)
-            .toList();
+    return resumeRepository.findByCandidateIdAndIsActiveTrue(candidateId).stream()
+        .map(this::buildFullResponse)
+        .toList();
   }
 
   @Override
@@ -184,27 +183,26 @@ public class  ResumeServiceImpl implements ResumeService {
   private ResumeResponse buildFullResponse(Resume resume) {
     Long resumeId = resume.getId();
     List<WorkExperienceResponse> workExperiences =
-            workExperienceRepository.findByResume_IdOrderByDisplayOrderAsc(resumeId)
-                    .stream().map(WorkExperienceMapper::toWorkExperienceResponse).toList();
+        workExperienceRepository.findByResume_IdOrderByDisplayOrderAsc(resumeId).stream()
+            .map(WorkExperienceMapper::toWorkExperienceResponse)
+            .toList();
     List<EducationResponse> educations =
-            educationRepository.findByResume_IdOrderByDisplayOrderAsc(resumeId)
-                    .stream().map(ResumeMapper::toEducationResponse).toList();
+        educationRepository.findByResume_IdOrderByDisplayOrderAsc(resumeId).stream()
+            .map(ResumeMapper::toEducationResponse)
+            .toList();
     List<ResumeSkillResponse> resumeSkills =
-            resumeSkillRepository.findByResume_IdOrderByDisplayOrderAsc(resumeId)
-                    .stream().map(ResumeMapper::toSkillResponse).toList();
+        resumeSkillRepository.findByResume_IdOrderByDisplayOrderAsc(resumeId).stream()
+            .map(ResumeMapper::toSkillResponse)
+            .toList();
     List<ProjectResponse> projects =
-            projectRepository.findByResume_IdOrderByDisplayOrderAsc(resumeId)
-                    .stream().map(ResumeMapper::toProjectResponse).toList();
+        projectRepository.findByResume_IdOrderByDisplayOrderAsc(resumeId).stream()
+            .map(ResumeMapper::toProjectResponse)
+            .toList();
     List<LanguageResponse> languages =
-            languageRepository.findByResume_IdOrderByDisplayOrderAsc(resumeId)
-                    .stream().map(ResumeMapper::toLanguageResponse).toList();
+        languageRepository.findByResume_IdOrderByDisplayOrderAsc(resumeId).stream()
+            .map(ResumeMapper::toLanguageResponse)
+            .toList();
     return ResumeMapper.toResumeResponse(
-            resume,
-            workExperiences,
-            educations,
-            resumeSkills,
-            projects,
-            languages
-    );
+        resume, workExperiences, educations, resumeSkills, projects, languages);
   }
 }

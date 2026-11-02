@@ -49,7 +49,7 @@ public class UserController {
   }
 
   @GetMapping("/{userId}")
-  public ResponseEntity<UserResponse> getUserByID(@PathVariable Long userId) throws Exception {
+  public ResponseEntity<UserResponse> getUserById(@PathVariable Long userId) throws Exception {
     User user = userService.getUserById(userId);
     return ResponseEntity.ok(UserMapper.toDTO(user));
   }

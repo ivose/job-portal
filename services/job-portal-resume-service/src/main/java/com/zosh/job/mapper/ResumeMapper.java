@@ -18,9 +18,7 @@ import java.util.List;
 
 public class ResumeMapper {
 
-  public static PersonalInfoResponse toPersonalInfoResponse(
-          PersonalInfo personalInfo
-  ) {
+  public static PersonalInfoResponse toPersonalInfoResponse(PersonalInfo personalInfo) {
     return personalInfo == null
         ? null
         : PersonalInfoResponse.builder()
@@ -39,13 +37,12 @@ public class ResumeMapper {
   }
 
   public static ResumeResponse toResumeResponse(
-          Resume resume,
-          List<WorkExperienceResponse> workExperiences,
-          List<EducationResponse> educations,
-          List<ResumeSkillResponse> skills,
-          List<ProjectResponse> projects,
-          List<LanguageResponse> languages
-  ) {
+      Resume resume,
+      List<WorkExperienceResponse> workExperiences,
+      List<EducationResponse> educations,
+      List<ResumeSkillResponse> skills,
+      List<ProjectResponse> projects,
+      List<LanguageResponse> languages) {
 
     return resume == null
         ? null

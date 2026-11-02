@@ -91,10 +91,10 @@ public class CompanyServiceImpl implements CompanyService {
   }
 
   @Override
-  public CompanyResponse getMyCompany(Long ownerID) throws Exception {
+  public CompanyResponse getMyCompany(Long ownerId) throws Exception {
     Company company =
         companyRepository
-            .findByOwnerId(ownerID)
+            .findByOwnerId(ownerId)
             .orElseThrow(() -> new Exception("Company not found"));
     return CompanyMapper.toResponse(company);
   }

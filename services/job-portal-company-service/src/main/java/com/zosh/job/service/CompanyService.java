@@ -13,7 +13,7 @@ public interface CompanyService {
 
   CompanyResponse getCompanyById(Long id) throws Exception;
 
-  CompanyResponse getMyCompany(Long ownerID) throws Exception;
+  CompanyResponse getMyCompany(Long ownerId) throws Exception;
 
   List<CompanyResponse> getAllCompanies(
       CompanyType companyType, IndustryType industryType, CompanyStatus companyStatus)
