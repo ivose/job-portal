@@ -6,6 +6,7 @@ import com.zosh.job.dto.response.UserResponse;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -31,6 +32,7 @@ public class ApplicationResponse {
   private LocalDate availableFrom;
   private Boolean isRead;
   private Boolean isStarred;
+  private List<ApplicationNoteResponse> notes;
   private Integer aiScore;
   private AishortListStatus aishortListStatus;
   private LocalDateTime withdrawnAt;
