@@ -30,6 +30,21 @@ job:
   service:
     url: http://localhost:5003
 
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
 # if necessary:
 # docker exec -it job-portal-postgres psql -U postgres -d postgres
 # CREATE DATABASE yt_job_portal_job;
