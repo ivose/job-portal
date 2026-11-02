@@ -1,10 +1,12 @@
 package com.zosh.job.mapper;
 
+import com.zosh.job.dto.ApplicationNoteResponse;
 import com.zosh.job.dto.ApplicationResponse;
 import com.zosh.job.dto.CompanyResponse;
 import com.zosh.job.dto.JobResponse;
 import com.zosh.job.dto.response.UserResponse;
 import com.zosh.job.model.Application;
+import com.zosh.job.model.ApplicationNote;
 import com.zosh.job.payload.CreateApplicationRequest;
 import java.time.LocalDateTime;
 
@@ -50,6 +52,17 @@ public class ApplicationMapper {
             .withrawnReason(application.getWithrawnReason())
             .appliedAt(application.getAppliedAt())
             .updatedAt(application.getUpdatedAt())
+            .build();
+  }
+
+  public static ApplicationNoteResponse toNoteResponse(ApplicationNote note) {
+    return note == null
+        ? null
+        : ApplicationNoteResponse.builder()
+            .id(note.getId())
+            .addedByUserId(note.getAddedByUserId())
+            .content(note.getContent())
+            .createdAt(note.getCreatedAt())
             .build();
   }
 }

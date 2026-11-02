@@ -1,0 +1,33 @@
+
+### Application Notes API Tests
+
+@baseUrl = http://localhost:5005
+@employerId = 1
+@applicationId = 1
+@noteId = 1
+
+### 1. Add a note
+POST {{baseUrl}}/api/application-notes/{{applicationId}}
+X-User-Id: {{employerId}}
+Content-Type: application/json
+
+{
+  "content": "Candidate has strong Java and Spring Boot experience."
+}
+
+### 2. Add another note
+POST {{baseUrl}}/api/application-notes/{{applicationId}}
+X-User-Id: {{employerId}}
+Content-Type: application/json
+
+{
+  "content": "Schedule a technical interview next week."
+}
+
+### 3. Get all notes for application
+GET {{baseUrl}}/api/application-notes/{{applicationId}}
+X-User-Id: {{employerId}}
+
+### 4. Delete a note
+DELETE {{baseUrl}}/api/application-notes/{{applicationId}}/{{noteId}}
+X-User-Id: {{employerId}}
