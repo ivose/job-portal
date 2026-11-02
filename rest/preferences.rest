@@ -1,0 +1,41 @@
+
+### Saved Jobs API Tests
+
+@baseUrl = http://localhost:5006
+@candidateId = 1
+@jobId = 1
+@savedJobId = 1
+
+### 1. Save a job
+POST {{baseUrl}}/api/preferences/saved
+X-User-Id: {{candidateId}}
+Content-Type: application/json
+
+{
+  "jobId": {{jobId}}
+}
+
+### 2. Get my saved jobs
+GET {{baseUrl}}/api/preferences/saved
+X-User-Id: {{candidateId}}
+
+### 3. Check whether a job is saved
+GET {{baseUrl}}/api/preferences/saved/check?jobId={{jobId}}
+X-User-Id: {{candidateId}}
+
+### 4. Try saving the same job again (expect duplicate error)
+POST {{baseUrl}}/api/preferences/saved
+X-User-Id: {{candidateId}}
+Content-Type: application/json
+
+{
+  "jobId": {{jobId}}
+}
+
+### 5. Remove a saved job
+DELETE {{baseUrl}}/api/preferences/saved/{{savedJobId}}
+X-User-Id: {{candidateId}}
+
+### 6. Check again (expect false)
+GET {{baseUrl}}/api/preferences/saved/check?jobId={{jobId}}
+X-User-Id: {{candidateId}}

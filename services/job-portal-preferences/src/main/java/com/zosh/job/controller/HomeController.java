@@ -1,4 +1,4 @@
-package job_portal_preferences.controller;
+package com.zosh.job.controller;
 
 import com.zosh.job.dto.ApiResponse;
 import org.springframework.http.ResponseEntity;
