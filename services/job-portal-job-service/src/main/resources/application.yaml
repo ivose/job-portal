@@ -1,53 +1,5 @@
-server:
-  port: 5003
-
 spring:
   application:
     name: job-portal-job-service
-
-  jpa:
-    hibernate:
-      ddl-auto: validate
-    show-sql: false
-    open-in-view: false
-    properties:
-      hibernate:
-        format_sql: true
-        dialect: org.hibernate.dialect.PostgreSQLDialect
-
-  datasource:
-    url: jdbc:postgresql://localhost:5432/yt_job_portal_job
-    username: postgres
-    password: secretpass # in real projects don't write straignt here, it's for local develop only
-    driver-class-name: org.postgresql.Driver
-
-  flyway:
-    enabled: true
-    baseline-on-migrate: false
-    locations: classpath:db/migration
-
-job:
-  service:
-    url: http://localhost:5003
-
-eureka:
-  client:
-    fetch-registry: true
-    register-with-eureka: true
-    service-url:
-      defaultZone: http://localhost:8761/eureka/
-  instance:
-    prefer-ip-address: true
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: health,info
-
-# if necessary:
-# docker exec -it job-portal-postgres psql -U postgres -d postgres
-# CREATE DATABASE yt_job_portal_job;
-# \l
-# \q
-# or docker exec job-portal-postgres psql -U postgres -d postgres -c "CREATE DATABASE yt_job_portal_company;"
+  config:
+    import: configserver:http://localhost:8888
