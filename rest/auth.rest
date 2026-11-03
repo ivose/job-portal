@@ -1,7 +1,33 @@
-@baseUrl = http://localhost:5001
 
-### Register a new user
-POST {{baseUrl}}/auth/signup
+@baseUrl = http://localhost:5000/auth
+
+### Register admin
+POST {{baseUrl}}/signup
+Content-Type: application/json
+
+{
+  "fullName": "My Admin",
+  "email": "admin@mail.com",
+  "password": "mypass",
+  "role": "ROLE_ADMIN"
+}
+
+### Login as admin
+# @name loginAdmin
+POST {{baseUrl}}/login
+Content-Type: application/json
+
+{
+  "email": "admin@mail.com",
+  "password": "mypass"
+}
+
+> {%
+    client.global.set("token", response.body.jwt);
+%}
+
+### Register employer
+POST {{baseUrl}}/signup
 Content-Type: application/json
 
 {
@@ -11,12 +37,17 @@ Content-Type: application/json
   "role": "ROLE_EMPLOYER"
 }
 
-
-### login
-POST {{baseUrl}}/auth/login
+### Login as employer
+# @name loginEmployer
+POST {{baseUrl}}/login
 Content-Type: application/json
 
 {
-"email": "my@mail.com",
-"password": "mypass"
+  "email": "my@mail.com",
+  "password": "mypass"
 }
+
+> {%
+    client.global.set("token", response.body.jwt);
+    client.log("JWT saved: " + (client.global.get("token") ? "YES" : "NO"));
+%}

@@ -1,9 +1,11 @@
+
+import auth.rest
+
 ### Job Portal - Job Service HTTP tests
 ### IntelliJ IDEA HTTP Client
 ### Run requests individually; update IDs after creating records.
 
-@baseUrl = http://localhost:5003
-@employerId = 1
+@baseUrl = http://localhost:5000
 @companyId = 1
 @categoryId = 1
 @parentCategoryId = 1
@@ -11,11 +13,15 @@
 @tagId = 1
 @jobId = 1
 
+### Login as employer and save JWT
+run #loginEmployer
+
 
 ### ==================== CATEGORIES ====================
 
 ### Create a root category
 POST {{baseUrl}}/api/job-categories
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
@@ -25,8 +31,9 @@ Content-Type: application/json
   "parentId": null
 }
 
-### Create a child category (update parentCategoryId first)
+### Create a child category
 POST {{baseUrl}}/api/job-categories
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
@@ -38,12 +45,15 @@ Content-Type: application/json
 
 ### List active categories
 GET {{baseUrl}}/api/job-categories
+Authorization: Bearer {{token}}
 
 ### Get category by ID
 GET {{baseUrl}}/api/job-categories/{{categoryId}}
+Authorization: Bearer {{token}}
 
-### Update category (PUT)
+### Update category
 PUT {{baseUrl}}/api/job-categories/{{categoryId}}
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
@@ -53,15 +63,16 @@ Content-Type: application/json
   "parentId": null
 }
 
-### Delete/deactivate category - run only after other tests
+### Delete/deactivate category - run last
 DELETE {{baseUrl}}/api/job-categories/{{categoryId}}
+Authorization: Bearer {{token}}
 
 
 ### ==================== SKILLS ====================
-### Note: Adapt category to the exact type/enum accepted by JobSkillRequest.
 
 ### Create skill
 POST {{baseUrl}}/api/job-skills
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
@@ -71,12 +82,15 @@ Content-Type: application/json
 
 ### List active skills
 GET {{baseUrl}}/api/job-skills
+Authorization: Bearer {{token}}
 
 ### Get skill by ID
 GET {{baseUrl}}/api/job-skills/{{skillId}}
+Authorization: Bearer {{token}}
 
 ### Update skill
 PUT {{baseUrl}}/api/job-skills/{{skillId}}
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
@@ -86,19 +100,21 @@ Content-Type: application/json
 
 ### Get skills by IDs
 POST {{baseUrl}}/api/job-skills/by-ids
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 [{{skillId}}]
 
 ### Delete skill - run last
 DELETE {{baseUrl}}/api/job-skills/{{skillId}}
+Authorization: Bearer {{token}}
 
 
 ### ==================== TAGS ====================
-### Adjust body fields if your JobTagRequest requires additional properties.
 
 ### Create tag
 POST {{baseUrl}}/api/job-tags
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
@@ -107,12 +123,15 @@ Content-Type: application/json
 
 ### List tags
 GET {{baseUrl}}/api/job-tags
+Authorization: Bearer {{token}}
 
 ### Get tag by ID
 GET {{baseUrl}}/api/job-tags/{{tagId}}
+Authorization: Bearer {{token}}
 
 ### Update tag
 PUT {{baseUrl}}/api/job-tags/{{tagId}}
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
@@ -121,21 +140,23 @@ Content-Type: application/json
 
 ### Get tags by IDs
 POST {{baseUrl}}/api/job-tags/by-ids
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 [{{tagId}}]
 
 ### Delete tag - run last
 DELETE {{baseUrl}}/api/job-tags/{{tagId}}
+Authorization: Bearer {{token}}
 
 
 ### ==================== JOBS ====================
-### Create categories, skills, tags, and the employer's company before creating a job.
-### Replace enum values below if your project's enums use different names.
+
+### Create categories, skills, tags and company before creating a job.
 
 ### Create draft job
 POST {{baseUrl}}/api/jobs
-X-User-Id: {{employerId}}
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
@@ -164,19 +185,23 @@ Content-Type: application/json
 
 ### Get job by ID
 GET {{baseUrl}}/api/jobs/{{jobId}}
+Authorization: Bearer {{token}}
 
-### Search public jobs
+### Search jobs
 GET {{baseUrl}}/api/jobs
+Authorization: Bearer {{token}}
 
-### Filter jobs (open jobs after publishing)
+### Filter jobs
 GET {{baseUrl}}/api/jobs?keyword=java&location=Tallinn
+Authorization: Bearer {{token}}
 
 ### Get jobs by company
 GET {{baseUrl}}/api/jobs/company/{{companyId}}
+Authorization: Bearer {{token}}
 
 ### Update draft/open job
 PUT {{baseUrl}}/api/jobs/{{jobId}}
-X-User-Id: {{employerId}}
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
@@ -205,18 +230,20 @@ Content-Type: application/json
 
 ### Publish draft job
 PATCH {{baseUrl}}/api/jobs/{{jobId}}/publish
-X-User-Id: {{employerId}}
+Authorization: Bearer {{token}}
 
-### Increment application count (test only after publishing)
+### Increment application count
 POST {{baseUrl}}/api/jobs/{{jobId}}/applications/count
+Authorization: Bearer {{token}}
 
-### Admin - list every job
+### Admin - list every job (login as admin first)
 GET {{baseUrl}}/api/jobs/admin
+Authorization: Bearer {{token}}
 
 ### Close open job
 PATCH {{baseUrl}}/api/jobs/{{jobId}}/close
-X-User-Id: {{employerId}}
+Authorization: Bearer {{token}}
 
 ### Delete job - run last
 DELETE {{baseUrl}}/api/jobs/{{jobId}}
-X-User-Id: {{employerId}}
+Authorization: Bearer {{token}}

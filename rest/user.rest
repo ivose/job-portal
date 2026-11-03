@@ -1,20 +1,22 @@
-@baseUrl = http://localhost:5001
-@email = my@mail.com
-@userId = 1
 
+import auth.rest
 
+@baseUrl = http://localhost:5000
+
+### Login as admin and save JWT
+run #loginAdmin
 
 ### Get my profile
 GET {{baseUrl}}/api/users/profile
-X-User-Email: my@mail.com
+Authorization: Bearer {{token}}
 
 ### Update my profile
 PUT {{baseUrl}}/api/users/profile
-X-User-Email: my@mail.com
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-  "fullName": "My Name",
+  "fullName": "My Admin",
   "phone": "+37255123456",
   "profileImage": "https://example.com/profile.png"
 }

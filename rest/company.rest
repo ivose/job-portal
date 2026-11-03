@@ -1,13 +1,15 @@
-### Company Service API Tests
-# IntelliJ IDEA HTTP Client
-# Update the port to match the company service server.port setting.
-@baseUrl = http://localhost:5002
-@ownerId = 1
+
+import auth.rest
+
+@baseUrl = http://localhost:5000
 @companyId = 1
+
+### 0. Login as employer and save JWT
+run #loginEmployer
 
 ### 1. Create a new company
 POST {{baseUrl}}/api/company
-X-User-Id: {{ownerId}}
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
@@ -38,20 +40,22 @@ Content-Type: application/json
 
 ### 2. Get my company
 GET {{baseUrl}}/api/company/my
-X-User-Id: {{ownerId}}
+Authorization: Bearer {{token}}
 
 ### 3. Get company by ID
 GET {{baseUrl}}/api/company/{{companyId}}
+Authorization: Bearer {{token}}
 
 ### 4. List all companies
 GET {{baseUrl}}/api/company
+Authorization: Bearer {{token}}
 
-### 5. Filter companies (replace example enum values with exact constants in your project)
+### 5. Filter companies
 # GET {{baseUrl}}/api/company?companyType=YOUR_COMPANY_TYPE&industryType=YOUR_INDUSTRY_TYPE&companyStatus=ACTIVE
 
-### 6. Update company (PUT replaces the fields managed by your current service)
+### 6. Update company
 PUT {{baseUrl}}/api/company/{{companyId}}
-X-User-Id: {{ownerId}}
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
@@ -69,19 +73,25 @@ Content-Type: application/json
   "companyType": "PRIVATE",
   "industryType": "TELECOMMUNICATIONS",
   "socialLinks": [
-    {"platform": "LINKEDIN", "url": "https://www.linkedin.com/company/techsolutions"},
-    {"platform": "WEBSITE", "url": "https://techsolutions.example.com"}
+    {
+      "platform": "LINKEDIN",
+      "url": "https://www.linkedin.com/company/techsolutions"
+    },
+    {
+      "platform": "WEBSITE",
+      "url": "https://techsolutions.example.com"
+    }
   ]
 }
 
-### 7. Verify company (should be restricted to authorized administrators)
+### 7. Verify company (use admin JWT)
 PATCH {{baseUrl}}/api/company/verify
-X-User-Id: {{ownerId}}
+Authorization: Bearer {{token}}
 
 ### 8. Deactivate my company
 PATCH {{baseUrl}}/api/company/deactivate
-X-User-Id: {{ownerId}}
+Authorization: Bearer {{token}}
 
-### 9. Delete company (destructive — run last)
+### 9. Delete company (run last)
 DELETE {{baseUrl}}/api/company/{{companyId}}
-X-User-Id: {{ownerId}}
+Authorization: Bearer {{token}}
