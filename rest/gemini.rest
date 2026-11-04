@@ -10,3 +10,8 @@ run #loginEmployer
 ### 3. Get company by ID
 GET {{baseUrl}}/api/ai/who are you
 Authorization: Bearer {{token}}
+
+
+### 3. Not Job related question
+GET {{baseUrl}}/api/ai/tel me about germany's history
+Authorization: Bearer {{token}}

@@ -1,0 +1,69 @@
+
+import auth.rest
+
+@baseUrl = http://localhost:5000
+
+### Login as employer
+run #loginEmployer
+
+### 1. Generate professional summary
+POST {{baseUrl}}/api/ai/resume/summary
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "targetJobTitle": "Java Backend Developer",
+  "yearOfExperience": 3,
+  "workExperiences": [
+    {
+      "jobTitle": "Java Developer",
+      "company": "Tech Solutions Estonia",
+      "description": "Developed Spring Boot REST APIs"
+    }
+  ],
+  "skills": [
+    "Java",
+    "Spring Boot",
+    "PostgreSQL",
+    "Docker"
+  ],
+  "educations": [
+    {
+      "degree": "Bachelor",
+      "fieldOfStudy": "Computer Science",
+      "institutionName": "Tallinn University of Technology"
+    }
+  ]
+}
+
+### 2. Generate work experience bullets
+POST {{baseUrl}}/api/ai/resume/experience-bullets
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "jobTitle": "Java Developer",
+  "company": "Tech Solutions Estonia",
+  "rawDescription": "Developed REST APIs and improved database performance",
+  "achievementsHint": "Reduced API response time by 30%"
+}
+
+### 3. Generate career feedback
+POST {{baseUrl}}/api/ai/resume/career-feedback
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "resumeContent": "Java developer with 3 years of experience in Spring Boot, PostgreSQL and Docker.",
+  "targetJobTitle": "Senior Java Backend Developer"
+}
+
+### 4. Generate resume improvement tips
+POST {{baseUrl}}/api/ai/resume/improvements
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "resumeContent": "Java developer with 3 years of experience building REST APIs.",
+  "targetJobTitle": "Java Backend Developer"
+}
