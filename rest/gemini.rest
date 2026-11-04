@@ -1,0 +1,12 @@
+
+import auth.rest
+
+@baseUrl = http://localhost:5000
+@companyId = 1
+
+### 0. Login as employer and save JWT
+run #loginEmployer
+
+### 3. Get company by ID
+GET {{baseUrl}}/api/ai/who are you
+Authorization: Bearer {{token}}

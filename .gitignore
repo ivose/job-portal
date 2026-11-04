@@ -6,3 +6,4 @@ target/
 
 # Optional: IntelliJ module files
 *.iml
+.env
