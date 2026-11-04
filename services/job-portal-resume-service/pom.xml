@@ -10,7 +10,7 @@
 
     <artifactId>job-portal-resume-service</artifactId>
     <name>job-portal-resume-service</name>
-    <description>Service for resumes</description>
+    <description>Service for managing candidate resumes, including resume builder, multiple versions, and resume parsing</description>
     <dependencies>
         <dependency>
             <groupId>com.zosh.job</groupId>
