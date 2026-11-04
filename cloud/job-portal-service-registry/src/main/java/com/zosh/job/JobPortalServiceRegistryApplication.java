@@ -8,8 +8,7 @@ import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
 @EnableEurekaServer
 public class JobPortalServiceRegistryApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(JobPortalServiceRegistryApplication.class, args);
-	}
-
+  public static void main(String[] args) {
+    SpringApplication.run(JobPortalServiceRegistryApplication.class, args);
+  }
 }

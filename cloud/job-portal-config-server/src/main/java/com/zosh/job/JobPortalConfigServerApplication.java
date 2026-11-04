@@ -8,8 +8,7 @@ import org.springframework.cloud.config.server.EnableConfigServer;
 @EnableConfigServer
 public class JobPortalConfigServerApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(JobPortalConfigServerApplication.class, args);
-	}
-
+  public static void main(String[] args) {
+    SpringApplication.run(JobPortalConfigServerApplication.class, args);
+  }
 }
