@@ -1,0 +1,73 @@
+
+import auth.rest
+
+@baseUrl = http://localhost:5000
+
+### 0. Login as employer
+run #loginEmployer
+
+
+### 1. Generate complete job description
+POST {{baseUrl}}/api/ai/job/describe
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "title": "Java Backend Developer",
+  "skills": [
+    "Java 21",
+    "Spring Boot",
+    "PostgreSQL",
+    "Docker",
+    "REST APIs"
+  ],
+  "experienceLevel": "MID_LEVEL",
+  "jobType": "FULL_TIME",
+  "workMode": "REMOTE",
+  "category": "Software Development",
+  "additionalContext": "Develop microservices for a job portal application."
+}
+
+
+### 2. Generate job requirements
+POST {{baseUrl}}/api/ai/job/requirements?title=Java%20Backend%20Developer&category=Software%20Development
+Authorization: Bearer {{token}}
+
+
+### 3. Generate salary range
+POST {{baseUrl}}/api/ai/job/salary-suggestion
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "title": "Java Backend Developer",
+  "skills": [
+    "Java",
+    "Spring Boot",
+    "PostgreSQL",
+    "Docker"
+  ],
+  "experienceLevel": "MID_LEVEL",
+  "jobType": "FULL_TIME",
+  "location": "Bangalore, India"
+}
+
+
+### 4. Generate job responsibilities
+POST {{baseUrl}}/api/ai/job/responsibilities?title=Java%20Backend%20Developer&category=Software%20Development
+Authorization: Bearer {{token}}
+
+
+### 5. Generate job benefits
+POST {{baseUrl}}/api/ai/job/benefits?title=Java%20Backend%20Developer&category=Software%20Development&jobType=FULL_TIME
+Authorization: Bearer {{token}}
+
+
+### 6. Recommend skills
+POST {{baseUrl}}/api/ai/job/skills-recommendation?jobTitle=Java%20Backend%20Developer&description=Develop%20Spring%20Boot%20REST%20APIs%20with%20PostgreSQL
+Authorization: Bearer {{token}}
+
+
+### 7. Recommend tags
+POST {{baseUrl}}/api/ai/job/tags-recommendations?jobTitle=Java%20Backend%20Developer&description=Remote%20Java%20development%20using%20Spring%20Boot%20and%20Docker
+Authorization: Bearer {{token}}
