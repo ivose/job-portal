@@ -1,0 +1,67 @@
+
+import auth.rest
+
+@baseUrl = http://localhost:5000
+
+### 0. Login as employer
+run #loginEmployer
+
+### 1. Enhance natural-language job search
+POST {{baseUrl}}/api/ai/search/enhance
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "query": "Looking for a remote Java Spring Boot developer job in Tallinn, full-time, mid-level, with a salary of at least 3000 EUR per month"
+}
+
+### 2. Enhance search for entry-level jobs
+POST {{baseUrl}}/api/ai/search/enhance
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "query": "Looking for an entry-level frontend internship in Tallinn, working with React and JavaScript"
+}
+
+### 3. Suggest job alert criteria
+POST {{baseUrl}}/api/ai/search/alert-suggestion
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "skills": [
+    "Java",
+    "Spring Boot",
+    "PostgreSQL",
+    "Docker",
+    "REST APIs"
+  ],
+  "experienceLevel": "MID",
+  "previousJobTitles": [
+    "Junior Java Developer",
+    "Backend Developer"
+  ],
+  "educations": [
+    "Bachelor's degree in Computer Science"
+  ]
+}
+
+### 4. Suggest alerts for a beginner
+POST {{baseUrl}}/api/ai/search/alert-suggestion
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "skills": [
+    "HTML",
+    "CSS",
+    "JavaScript",
+    "React"
+  ],
+  "experienceLevel": "ENTRY",
+  "previousJobTitles": [],
+  "educations": [
+    "Frontend Development Bootcamp"
+  ]
+}

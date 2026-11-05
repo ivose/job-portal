@@ -10,13 +10,12 @@ import com.zosh.job.payload.WorkExperienceBulletRequest;
 import com.zosh.job.payload.WorkExperienceBulletsResponse;
 
 public interface ResumeAiService {
-  public AiTextResponse generateProfessionalSummary(ResumeSummaryRequest req) throws Exception;
+  AiTextResponse generateProfessionalSummary(ResumeSummaryRequest req) throws Exception;
 
-  public WorkExperienceBulletsResponse generateWorkExperienceBullets(
-      WorkExperienceBulletRequest req) throws Exception;
-
-  public CareerFeedbackResponse generateCareerFeedback(CareerFeedbackRequest req) throws Exception;
-
-  public ResumeImprovementResponse getResumeImprovementTips(ResumeImprovementRequest req)
+  WorkExperienceBulletsResponse generateWorkExperienceBullets(WorkExperienceBulletRequest req)
       throws Exception;
+
+  CareerFeedbackResponse generateCareerFeedback(CareerFeedbackRequest req) throws Exception;
+
+  ResumeImprovementResponse getResumeImprovementTips(ResumeImprovementRequest req) throws Exception;
 }

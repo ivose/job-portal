@@ -19,7 +19,7 @@ public class JobAiServiceImpl implements JobAiService {
   private static final String SYSTEM_PROMPT =
       """
             You are a senior HR professional and technical recruiter with deep knowledge of the Indian job market (2025-2026)
-            You specialize in writing job description, conpensation benchmarking, and talent aquisition.
+            You specialize in writing job description, compensation benchmarking, and talent acquisition.
             Always write in a professional, engaging, inclusive and bias-free tone.
             When asked for JSON, respond ONLY with valid JSON - no explanation, no markdown fences.
             """;
@@ -29,7 +29,7 @@ public class JobAiServiceImpl implements JobAiService {
     String skills = req.getSkills() != null ? String.join(", ", req.getSkills()) : NOT_SPECIFIED;
     String prompt =
         """
-                Write a comprehensive, engaging, and inclusive job descriptioin..
+                Write a comprehensive, engaging, and inclusive job description.
 
                 Job Details:
                 - Title %s
@@ -45,7 +45,7 @@ public class JobAiServiceImpl implements JobAiService {
                 - [2-3 compelling sentences describing the role and its impact]
 
                 ## Key Responsibilities
-                - [6 specific, action-orjented bullet points]
+                - [6 specific, action-oriented bullet points]
 
                 ## Requirements
                 - [5-6 must-have qualifications and skills]
@@ -117,7 +117,7 @@ public class JobAiServiceImpl implements JobAiService {
                     "marketInsight": "Brief 1-2 sentence insight about this role's compensation trend in the current Indian market"
                 }
 
-                minSalary and maxSalary must be numbers (not strings). Use realiiistic current Indian market rates.
+                minSalary and maxSalary must be numbers (not strings). Use realistic current Indian market rates.
                 """
             .formatted(
                 req.getTitle(),
@@ -134,7 +134,7 @@ public class JobAiServiceImpl implements JobAiService {
       throws Exception {
     String promt =
         """
-                Generate 6 specific, action-orjented job responsibilities for this role.
+                Generate 6 specific, action-oriented job responsibilities for this role.
 
                 - Job Title: %s
                 - Category: %s
@@ -159,7 +159,7 @@ public class JobAiServiceImpl implements JobAiService {
       throws Exception {
     String promt =
         """
-                Generate 6 competitive, attractive job beenefits for this role..
+                Generate 6 competitive, attractive job benefits for this role..
 
                 - Job Title: %s
                 - Category: %s
@@ -171,7 +171,7 @@ public class JobAiServiceImpl implements JobAiService {
                 - [benefit 2]
                 ...
 
-                Include a mix of> compesation perks, health&wellness, growth, flexibility, and culture benefits.
+                Include a mix of compensation perks, health & wellness, growth, flexibility, and culture benefits.
                 Keep each bullet concise and specific.
                 """
             .formatted(title, category, jobType);

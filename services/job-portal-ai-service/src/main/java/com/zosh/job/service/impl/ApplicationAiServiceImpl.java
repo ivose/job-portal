@@ -21,9 +21,9 @@ public class ApplicationAiServiceImpl implements ApplicationAiService {
 
   private static final String SYSTEM_PROMPT =
       """
-            You are a seniour tecnical  recruiter and career coach with 50+ years of experience in the Indian tech industry.
+            You are a senior technical  recruiter and career coach with 50+ years of experience in the Indian tech industry.
             You specialize in candidate evaluation, cover letter writing, skills gap analysis, and career development.
-            Always provide objective, fair, and actiionable assesments based only on the information provided.
+            Always provide objective, fair, and actionable assessments based only on the information provided.
             When asked for JSON, respond ONLY with valid JSON - no explanation, no markdown fences.
             """;
   private static final String NOT_PROVIDED = "Not provided";
@@ -43,7 +43,7 @@ public class ApplicationAiServiceImpl implements ApplicationAiService {
                 - Name: %s
                 - Professional Summary: %s
                 - Key Skills: %s
-                - Relevant Esperience: %s
+                - Relevant Experience: %s
 
                 Write a 3-paragraph cover letter:
                 Paragraph 1 (Opening): Express specific enthusiasm for this exact role and company. Mention 1 specific thing about the role that excites you.
@@ -63,9 +63,9 @@ public class ApplicationAiServiceImpl implements ApplicationAiService {
                 Objects.toString(req.getJobDescription(), NOT_PROVIDED),
                 Objects.toString(req.getTargetCompanyName(), "your organization"),
                 req.getCandidateName(),
-                Objects.toString(req.getCandidateSummary(), "Esxperienced Professional"),
-                getResult(req.getCandidateSkills(), NOT_PROVIDED),
-                getResult(req.getCandidateExperiences(), NOT_PROVIDED));
+                Objects.toString(req.getCandidateSummary(), "Experienced Professional"),
+                getResult(req.getCandidateSkills()),
+                getResult(req.getCandidateExperiences()));
     return AiTextResponse.builder()
         .content(geminiClient.generateText(SYSTEM_PROMPT, prompt))
         .build();
@@ -77,7 +77,7 @@ public class ApplicationAiServiceImpl implements ApplicationAiService {
         """
                 Score this job application based on how well the candidate matches the requirements.
 
-                Job Requiements:
+                Job Requirements:
                 - Title: %s
                 - Experience Level Required: %s
                 - Required Skills: %s
@@ -109,11 +109,11 @@ public class ApplicationAiServiceImpl implements ApplicationAiService {
             .formatted(
                 Objects.toString(req.getJobTitle(), NOT_PROVIDED),
                 Objects.toString(req.getExperienceLevel(), NOT_PROVIDED),
-                getResult(req.getRequiredSkills(), NOT_PROVIDED),
+                getResult(req.getRequiredSkills()),
                 Objects.toString(req.getResponsibilities(), NOT_PROVIDED),
                 Objects.toString(req.getCandidateSummary(), NOT_PROVIDED),
-                getResult(req.getCandidateSkills(), NOT_PROVIDED),
-                getResult(req.getCandidateExperience(), NOT_PROVIDED));
+                getResult(req.getCandidateSkills()),
+                getResult(req.getCandidateExperience()));
     return geminiClient.generateJson(SYSTEM_PROMPT, prompt, ScreeningScoreResponse.class);
   }
 
@@ -121,7 +121,7 @@ public class ApplicationAiServiceImpl implements ApplicationAiService {
   public SkillsGapResponse anallyseSkillGap(SkillGapRequest req) throws Exception {
     String prompts =
         """
-                Analyse the skills gap between a candidate and a job requiredment.
+                Analyse the skills gap between a candidate and a job requirement.
 
                 Job Title: %s
                 Candidate's Current Skills: %s
@@ -145,12 +145,12 @@ public class ApplicationAiServiceImpl implements ApplicationAiService {
                 """
             .formatted(
                 req.getJobTitle(),
-                getResult(req.getCandidateSkills(), NOT_PROVIDED),
-                getResult(req.getRequiredSkills(), NOT_PROVIDED));
+                getResult(req.getCandidateSkills()),
+                getResult(req.getRequiredSkills()));
     return geminiClient.generateJson(SYSTEM_PROMPT, prompts, SkillsGapResponse.class);
   }
 
-  private String getResult(List<String> input, String def) {
-    return input != null && !input.isEmpty() ? String.join(", ", input) : def;
+  private String getResult(List<String> input) {
+    return input != null && !input.isEmpty() ? String.join(", ", input) : NOT_PROVIDED;
   }
 }

@@ -10,6 +10,7 @@ import com.zosh.job.payload.ResumeSummaryRequest;
 import com.zosh.job.payload.WorkExperienceBulletRequest;
 import com.zosh.job.payload.WorkExperienceBulletsResponse;
 import com.zosh.job.service.ResumeAiService;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,7 +21,9 @@ import org.springframework.stereotype.Service;
 public class ResumeAiServiceImpl implements ResumeAiService {
 
   private final GeminiClient geminiClient;
-  String SYSTEM_PROMPT =
+  private static final String NOT_SPECIFIED = "Not specified";
+  private static final String NOT_PROVIDED = "Not provided";
+  private static final String SYSTEM_PROMPT =
       """
             You are a senior resume writer and career coach with 15+ years of experience.
             You specialize in ATS-optimized resumes, career coaching, and professional branding.
@@ -37,27 +40,16 @@ public class ResumeAiServiceImpl implements ResumeAiService {
             ? req.getWorkExperiences().stream()
                 .map(
                     e ->
-                        e.getJobTitle()
-                            + " at "
-                            + e.getCompany()
-                            + (e.getDescription() != null && !e.getDescription().isBlank()
-                                ? ": " + e.getDescription()
-                                : ""))
+                        e.getJobTitle() + " at " + e.getCompany() + getColonTxt(e.getDescription()))
                 .collect(Collectors.joining("; "))
-            : "Note Provided";
-    String skills =
-        req.getSkills() != null
-            ? req.getSkills().stream().collect(Collectors.joining(", "))
-            : "Note Provided";
+            : NOT_PROVIDED;
+    String skills = req.getSkills() != null ? String.join(", ", req.getSkills()) : NOT_PROVIDED;
     String educations =
         req.getEducations() != null
             ? req.getEducations().stream()
-                .map(
-                    e ->
-                        e.getDegree()
-                            + (e.getFieldOfStudy() != null ? " in " + e.getFieldOfStudy() : ""))
+                .map(e -> e.getDegree() + getInTxt(e.getFieldOfStudy()))
                 .collect(Collectors.joining("; "))
-            : "Note Provided";
+            : NOT_PROVIDED;
     String prompt =
         """
                 Write a compelling professional summary for a resume.
@@ -82,7 +74,7 @@ public class ResumeAiServiceImpl implements ResumeAiService {
                 - Make it ATS-friendly
                 """
             .formatted(
-                req.getTargetJobTitle() != null ? req.getTargetJobTitle() : "Software Developer",
+                Objects.toString(req.getTargetJobTitle(), "Software Developer"),
                 req.getYearOfExperience() != null ? req.getYearOfExperience() : 0,
                 experiences,
                 skills,
@@ -119,9 +111,9 @@ public class ResumeAiServiceImpl implements ResumeAiService {
                 """
             .formatted(
                 req.getJobTitle(),
-                req.getCompany() != null ? req.getCompany() : "the company",
+                Objects.toString(req.getCompany(), "the company"),
                 req.getRawDescription(),
-                req.getAchievementsHint() != null ? req.getAchievementsHint() : "None");
+                Objects.toString(req.getAchievementsHint(), "None"));
     return geminiClient.generateJson(SYSTEM_PROMPT, prompt, WorkExperienceBulletsResponse.class);
   }
 
@@ -154,8 +146,7 @@ public class ResumeAiServiceImpl implements ResumeAiService {
                 - Be specific - mention actual skills, tools, or sections by name
                 """
             .formatted(
-                req.getTargetJobTitle() != null ? req.getTargetJobTitle() : "Not specified",
-                req.getResumeContent());
+                Objects.toString(req.getTargetJobTitle(), NOT_SPECIFIED), req.getResumeContent());
     return geminiClient.generateJson(SYSTEM_PROMPT, prompt, CareerFeedbackResponse.class);
   }
 
@@ -183,8 +174,15 @@ public class ResumeAiServiceImpl implements ResumeAiService {
                 Provide 4-6 specific improvements. Score should be 0-100
                 """
             .formatted(
-                req.getTargetJobTitle() != null ? req.getTargetJobTitle() : "Not specified",
-                req.getResumeContent());
+                Objects.toString(req.getTargetJobTitle(), NOT_SPECIFIED), req.getResumeContent());
     return geminiClient.generateJson(SYSTEM_PROMPT, prompts, ResumeImprovementResponse.class);
+  }
+
+  private String getColonTxt(String value) {
+    return value != null && !value.isBlank() ? ": " + value : "";
+  }
+
+  private String getInTxt(String value) {
+    return value != null && !value.isBlank() ? " in " + value : "";
   }
 }

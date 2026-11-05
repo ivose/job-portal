@@ -8,9 +8,9 @@ import com.zosh.job.payload.SkillGapRequest;
 import com.zosh.job.payload.SkillsGapResponse;
 
 public interface ApplicationAiService {
-  public AiTextResponse generateCoverLetter(CoverLetterRequest req) throws Exception;
+  AiTextResponse generateCoverLetter(CoverLetterRequest req) throws Exception;
 
-  public ScreeningScoreResponse scoreCandidate(ScreeningScoreRequest req) throws Exception;
+  ScreeningScoreResponse scoreCandidate(ScreeningScoreRequest req) throws Exception;
 
-  public SkillsGapResponse anallyseSkillGap(SkillGapRequest req) throws Exception;
+  SkillsGapResponse anallyseSkillGap(SkillGapRequest req) throws Exception;
 }
