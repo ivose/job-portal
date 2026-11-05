@@ -1,0 +1,89 @@
+
+import auth.rest
+
+@baseUrl = http://localhost:5000
+
+### 0. Login as employer
+run #loginEmployer
+
+
+### 1. Generate cover letter
+POST {{baseUrl}}/api/ai/application/cover-letter
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "jobTitle": "Java Backend Developer",
+  "jobDescription": "Develop REST APIs and microservices using Java, Spring Boot and PostgreSQL.",
+  "candidateName": "My Name",
+  "candidateSummary": "Java developer with 3 years of experience building backend services.",
+  "candidateSkills": [
+    "Java",
+    "Spring Boot",
+    "PostgreSQL",
+    "Docker",
+    "REST APIs"
+  ],
+  "candidateExperiences": [
+    "Developed REST APIs using Spring Boot",
+    "Improved API response times by 30%",
+    "Worked with PostgreSQL and Docker"
+  ],
+  "targetCompanyName": "Tech Solutions Estonia"
+}
+
+
+### 2. Score candidate
+POST {{baseUrl}}/api/ai/application/screening-score
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "jobTitle": "Java Backend Developer",
+  "experienceLevel": "MID_LEVEL",
+  "requiredSkills": [
+    "Java",
+    "Spring Boot",
+    "PostgreSQL",
+    "Docker",
+    "REST APIs"
+  ],
+  "responsibilities": "Design REST APIs, build microservices, optimize database queries and write unit tests.",
+  "candidateSummary": "Java developer with 3 years of experience building Spring Boot applications.",
+  "candidateSkills": [
+    "Java",
+    "Spring Boot",
+    "PostgreSQL",
+    "Git"
+  ],
+  "candidateExperience": [
+    "3 years developing Java backend services",
+    "Built REST APIs using Spring Boot",
+    "Worked with PostgreSQL databases"
+  ]
+}
+
+
+### 3. Analyse skill gap
+POST {{baseUrl}}/api/ai/application/skill-gap
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "jobTitle": "Java Backend Developer",
+  "candidateSkills": [
+    "Java",
+    "Spring Boot",
+    "PostgreSQL",
+    "Git"
+  ],
+  "requiredSkills": [
+    "Java",
+    "Spring Boot",
+    "PostgreSQL",
+    "Docker",
+    "Kubernetes",
+    "AWS",
+    "Microservices"
+  ]
+}
